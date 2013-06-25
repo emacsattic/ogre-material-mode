@@ -46,13 +46,19 @@
        (ogre-material-section-names
         (eval-when-compile
           (regexp-opt '("material" "vertex_program" "fragment_program"
+                        "tesselation_hull_program"
+                        "tesselation_domain_program"
+                        "geometry_program"
                         "vertex_program_ref" "fragment_program_ref"
+                        "tesselation_hull_program_ref"
+                        "tesselation_domain_program_ref"
+                        "geometry_program_ref"
                         "pass" "technique" "texture_unit" "default_params"))))
        
        ;; technique section attributes
        (ogre-material-technique-attrs
         (eval-when-compile 
-			(regexp-opt '("scheme" "lod_index"
+                        (regexp-opt '("scheme" "lod_index"
                            "shadow_caster_material" "shadow_receiver_material"
                            "gpu_vendor_rule" "gpu_device_rule"))))
 
@@ -88,7 +94,8 @@
        ;; shader declaration attrs
        (ogre-material-shader-attrs
         (eval-when-compile
-          (regexp-opt '("source" "entry_point" "profiles"))))
+          (regexp-opt '("source" "entry_point" "profiles"
+                        "target" "syntax" "delegate"))))
 
        ;; shader default_params section
        (ogre-material-default-params
@@ -183,7 +190,7 @@
  
   (setq ogre-material-font-lock-keywords-1
         (list
-	     ;; derived values
+         ;; derived values
          `(eval .
                 (cons (concat "\\<\\(" ,ogre-material-derived-value-names "\\)\\>" )
                       'font-lock-variable-name-face))
@@ -210,14 +217,14 @@
          `(eval .
                 (cons (concat "\\<\\(" ,ogre-material-default-params "\\)\\>" )
                       'font-lock-keyword-face))  
-	     ;; some constants
+         ;; some constants
          '("[[:blank:]]+\\(on\\|off\\|none\\)" 1 font-lock-variable-name-face)
 
          ;; numbers (integer/float)
          '("\\(\\([[:blank:]]+[0-9]+\\)\\(\\.\\([0-9]+\\)\\)?\\)" 1 font-lock-constant-face)
-	     
-	     ;; comment
-		 '("^\\([[:blank:]]\\)*//.*$" 1 font-lock-comment-face)
+             
+             ;; comment
+                 '("^\\([[:blank:]]\\)*//.*$" 1 font-lock-comment-face)
          )))
      
 
