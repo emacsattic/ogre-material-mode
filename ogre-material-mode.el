@@ -35,7 +35,7 @@
 (eval-when-compile
   (require 'cc-mode))
 
-(defconst ogre-material-version "0.1"
+(defconst ogre-material-version "0.2"
   "Ogre3D material scripts major mode version number")
 
 
@@ -48,11 +48,11 @@
           (regexp-opt '("material" "vertex_program" "fragment_program"
                         "tesselation_hull_program"
                         "tesselation_domain_program"
-                        "geometry_program"
+                        "geometry_program" "compute_program"
                         "vertex_program_ref" "fragment_program_ref"
                         "tesselation_hull_program_ref"
                         "tesselation_domain_program_ref"
-                        "geometry_program_ref"
+                        "geometry_program_ref" "compute_program_ref"
                         "pass" "technique" "texture_unit" "default_params"))))
        
        ;; technique section attributes
@@ -95,7 +95,8 @@
        (ogre-material-shader-attrs
         (eval-when-compile
           (regexp-opt '("source" "entry_point" "profiles"
-                        "target" "syntax" "delegate"))))
+                        "target" "syntax" "delegate"
+                        "uses_adjacency_information"))))
 
        ;; shader default_params section
        (ogre-material-default-params
@@ -219,12 +220,10 @@
                       'font-lock-keyword-face))  
          ;; some constants
          '("[[:blank:]]+\\(on\\|off\\|none\\)" 1 font-lock-variable-name-face)
-
          ;; numbers (integer/float)
          '("\\(\\([[:blank:]]+[0-9]+\\)\\(\\.\\([0-9]+\\)\\)?\\)" 1 font-lock-constant-face)
-             
-             ;; comment
-                 '("^\\([[:blank:]]\\)*//.*$" 1 font-lock-comment-face)
+         ;; comment
+         '("^\\([[:blank:]]\\)*//.*$" 1 font-lock-comment-face)
          )))
      
 
